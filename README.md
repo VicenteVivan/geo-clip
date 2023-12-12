@@ -2,12 +2,11 @@
  
 # 🌎 GeoCLIP: Clip-Inspired Alignment between Locations and Images for Effective Worldwide Geo-localization
 
-[![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://www.nature.com/articles/nature14539)
+[![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://arxiv.org/abs/2309.16020v2)
 [![Conference](https://img.shields.io/badge/NeurIPS-2023-blue)]()
 
-<!--
-Conference
--->
+![ALT TEXT](https://ibb.co/9Zf9dG9)
+
 </div>
  
 ## Description
