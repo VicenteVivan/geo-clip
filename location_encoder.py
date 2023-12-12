@@ -62,7 +62,7 @@ class LocationEncoder(nn.Module):
 if __name__ == "__main__":
     gps_encoder = LocationEncoder()
 
-    gps_encoder.load_state_dict(torch.load('networks/GeoCLIP/location_encoder.pth'))
+    gps_encoder.load_state_dict(torch.load('networks/GeoCLIP/location_encoder_weights.pth'))
 
     loc_data = torch.Tensor([[40.7128, -74.0060], [34.0522, -118.2437]])  # NYC and LA in lat, long
     output = gps_encoder(loc_data)
