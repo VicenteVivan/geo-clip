@@ -5,7 +5,7 @@
 [![Paper](http://img.shields.io/badge/paper-arxiv.1001.2234-B31B1B.svg)](https://arxiv.org/abs/2309.16020v2)
 [![Conference](https://img.shields.io/badge/NeurIPS-2023-blue)]()
 
-![ALT TEXT](https://i.ibb.co/Dr6DjLD/Screenshot-2023-12-12-at-12-01-16-PM-modified.png)
+![ALT TEXT](https://i.ibb.co/fDKYTQY/Screenshot-2023-12-12-at-12-01-16-PM-modified.png)
 
 </div>
  
