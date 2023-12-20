@@ -72,7 +72,11 @@ output = gps_encoder(loc_data)
 print(output.shape) # (2, 512)
 ```
 
-### Citation
+## Acknowledgments
+
+This project incorporates code from Joshua M. Long's Random Fourier Features Pytorch. For the original source, visit [here](https://github.com/jmclong/random-fourier-features-pytorch).
+
+## Citation
 
 ```
 @article{cepeda2023geoclip,
