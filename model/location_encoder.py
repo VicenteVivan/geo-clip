@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from .rff.layers import GaussianEncoding
+from model.rff.layers import GaussianEncoding
 
 # Constants
 A1 = 1.340264
@@ -52,7 +52,7 @@ class LocationEncoder(nn.Module):
     def forward(self, location):
         location = location.float()
         location = equal_earth_projection(location)
-        location_features = torch.zeros(location.shape[0], 512).to('cuda')
+        location_features = torch.zeros(location.shape[0], 512)
 
         for i in range(self.n):
             location_features += self._modules['LocEnc' + str(i)](location)
