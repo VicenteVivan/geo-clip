@@ -10,16 +10,12 @@ class ImageEncoder(nn.Module):
         self.mlp = nn.Sequential(nn.Linear(768, 768),
                                  nn.ReLU(),
                                  nn.Linear(768, 512))
-        self.mlp.load_state_dict(torch.load("model/weights/image_encoder_mlp_weights.pth"))
 
     def preprocess_image(self, image):
-        return self.image_processor(images=image, return_tensors="pt")
-
-    def get_image_features(self, image):
-        inputs = self.preprocess_image(image)
-        return self.CLIP.get_image_features(**inputs)
+        x = self.image_processor(images=image, return_tensors="pt")["pixel_values"]
+        return x
 
     def forward(self, x):
-        x = self.get_image_features(x)
+        x = self.CLIP.get_image_features(pixel_values=x)
         x = self.mlp(x)
         return x
