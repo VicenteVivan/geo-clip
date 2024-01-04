@@ -39,17 +39,17 @@ model.eval()
 
 image_file = "images/Kauai.png"
 
-image = Image.open(file_name)
+image = Image.open(image_file)
 
 with torch.no_grad():
     top_pred_gps, top_pred_prob = model.predict(image, top_k=5)
 
-# Print top 5 predictions
 print("Top 5 Predictions")
 print("=================")
 for i in range(5):
-    print(f"Prediction {i+1}: {top_pred_gps[i]}")
-    print(f"Probability: {top_pred_prob[i]}")
+    lat, lon = top_pred_gps[i]
+    print(f"Prediction {i+1}: ({lat:.6f}, {lon:.6f})")
+    print(f"Probability: {top_pred_prob[i]:.6f}")
     print("")
 ```
 
