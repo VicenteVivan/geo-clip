@@ -27,6 +27,8 @@ _🚧 Repo Under Construction 🔨_
 
 ## 🗺️📍 Worldwide Image Geolocalization
 
+![ALT TEXT](/figures/inference.png)
+
 ### Usage: GeoCLIP Inference
 
 ```python
