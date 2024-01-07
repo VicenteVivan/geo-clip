@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from model.rff.layers import GaussianEncoding
+from .rff import GaussianEncoding
+from .misc import file_dir
 
 # Constants
 A1 = 1.340264
@@ -41,7 +42,7 @@ class LocationEncoderCapsule(nn.Module):
         return x
 
 class LocationEncoder(nn.Module):
-    def __init__(self, sigma=[2**0, 2**4, 2**8]):
+    def __init__(self, sigma=[2**0, 2**4, 2**8], from_pretrained=True):
         super(LocationEncoder, self).__init__()
         self.sigma = sigma
         self.n = len(self.sigma)
@@ -49,21 +50,17 @@ class LocationEncoder(nn.Module):
         for i, s in enumerate(self.sigma):
             self.add_module('LocEnc' + str(i), LocationEncoderCapsule(sigma=s))
 
+        if from_pretrained:
+            self._load_weights()
+
+    def _load_weights(self):
+        self.load_state_dict(torch.load(f"{file_dir}/weights/location_encoder_weights.pth"))
+
     def forward(self, location):
-        location = location.float()
         location = equal_earth_projection(location)
-        location_features = torch.zeros(location.shape[0], 512)
+        location_features = torch.zeros(location.shape[0], 512).to(location.device)
 
         for i in range(self.n):
             location_features += self._modules['LocEnc' + str(i)](location)
         
         return location_features
-
-if __name__ == "__main__":
-    gps_encoder = LocationEncoder()
-
-    gps_encoder.load_state_dict(torch.load('networks/GeoCLIP/location_encoder_weights.pth'))
-
-    loc_data = torch.Tensor([[40.7128, -74.0060], [34.0522, -118.2437]])  # NYC and LA in lat, long
-    output = gps_encoder(loc_data)
-    print(output.shape)
