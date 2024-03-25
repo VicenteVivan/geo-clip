@@ -41,8 +41,8 @@ class GeoDataLoader(Dataset):
     - 'LON' for longitude.
     
     Attributes:
-        dataset_folder (str): Base folder where images are stored.
         dataset_file (str): CSV file path containing image names and GPS coordinates.
+        dataset_folder (str): Base folder where images are stored.
         transform (callable, optional): Optional transform to be applied on a sample.
     """
     def __init__(self, dataset_file, dataset_folder, transform=None):
