@@ -79,7 +79,6 @@ In our paper, we show that once trained, our location encoder can assist other g
 
 ```python
 import torch
-import torch.nn as nn
 from geoclip import LocationEncoder
 
 gps_encoder = LocationEncoder()
