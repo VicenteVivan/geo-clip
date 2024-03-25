@@ -4,3 +4,4 @@ Pillow
 transformers
 pandas
 numpy
+geopy
