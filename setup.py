@@ -5,7 +5,7 @@ with open('requirements.txt') as f:
 
 setup(
     name="geoclip",
-    version="1.1.0",
+    version="1.2.0",
     packages=find_packages(),
     description="",
     long_description=open("README.md").read(),
