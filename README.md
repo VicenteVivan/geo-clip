@@ -94,11 +94,13 @@ This project incorporates code from Joshua M. Long's Random Fourier Features Pyt
 
 ## Citation
 
+If you find GeoCLIP beneficial for your research, please consider citing us with the following BibTeX entry:
+
 ```
-@article{cepeda2023geoclip,
+@inproceedings{geoclip,
   title={GeoCLIP: Clip-Inspired Alignment between Locations and Images for Effective Worldwide Geo-localization},
   author={Vivanco, Vicente and Nayak, Gaurav Kumar and Shah, Mubarak},
-  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  booktitle={Advances in Neural Information Processing Systems},
   year={2023}
 }
 ```
