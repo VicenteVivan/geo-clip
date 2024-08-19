@@ -54,7 +54,7 @@ class LocationEncoder(nn.Module):
             self._load_weights()
 
     def _load_weights(self):
-        self.load_state_dict(torch.load(f"{file_dir}/weights/location_encoder_weights.pth"))
+        self.load_state_dict(torch.load(f"{file_dir}/weights/location_encoder_weights.pth", weights_only=True))
 
     def forward(self, location):
         location = equal_earth_projection(location)
