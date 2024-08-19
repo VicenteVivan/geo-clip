@@ -34,9 +34,9 @@ class GeoCLIP(nn.Module):
         return super().to(device)
 
     def _load_weights(self):
-        self.image_encoder.mlp.load_state_dict(torch.load(f"{self.weights_folder}/image_encoder_mlp_weights.pth"))
-        self.location_encoder.load_state_dict(torch.load(f"{self.weights_folder}/location_encoder_weights.pth"))
-        self.logit_scale = nn.Parameter(torch.load(f"{self.weights_folder}/logit_scale_weights.pth"))
+        self.image_encoder.mlp.load_state_dict(torch.load(f"{self.weights_folder}/image_encoder_mlp_weights.pth", weights_only=True))
+        self.location_encoder.load_state_dict(torch.load(f"{self.weights_folder}/location_encoder_weights.pth", weights_only=True))
+        self.logit_scale = nn.Parameter(torch.load(f"{self.weights_folder}/logit_scale_weights.pth", weights_only=True))
 
     def _initialize_gps_queue(self, queue_size):
         self.queue_size = queue_size
