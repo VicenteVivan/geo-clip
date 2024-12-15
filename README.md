@@ -1,6 +1,6 @@
 <div align="center">    
  
-# 🌎 GeoCLIP-PLUS: Building Upon GeoCLIP; Clip-Inspired Alignment between Locations and Images for Effective Worldwide Geo-localization 
+# 🌎 GeoCLIP-PLUS: Multi-Modal Geo-localization
 
 [![Paper](http://img.shields.io/badge/paper-arxiv.2309.16020-B31B1B.svg)](https://arxiv.org/abs/2309.16020v2)
 [![Conference](https://img.shields.io/badge/NeurIPS-2023-blue)]()
@@ -14,11 +14,11 @@
 
 </div>
 
-### 📍 Try out our demo! [![Colab Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1p3f5F3fIw9CD7H4RvfnHO9g-J45qUPHp?usp=sharing)
+### 📍 Try The Demo! [![Colab Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1p3f5F3fIw9CD7H4RvfnHO9g-J45qUPHp?usp=sharing)
 
 ## Description
 
-GeoCLIP addresses the challenges of worldwide image geo-localization by introducing a novel CLIP-inspired approach that aligns images with geographical locations, achieving state-of-the-art results on geo-localization and GPS to vector representation on benchmark datasets (Im2GPS3k, YFCC26k, GWS15k, and the Geo-Tagged NUS-Wide Dataset). Our location encoder models the Earth as a continuous function, learning semantically rich, CLIP-aligned features that are suitable for geo-localization. Additionally, our location encoder architecture generalizes, making it suitable for use as a pre-trained GPS encoder to aid geo-aware neural architectures.
+GeoCLIP-Plus builds on the original GeoCLIP model by incorporating advanced features that enhance usability and expand functionality. This version introduces more user-friendly interfaces and additional utilities, designed to streamline the workflow for geospatial data analysis and visualization.
 
 ![ALT TEXT](/figures/method.png)
 
