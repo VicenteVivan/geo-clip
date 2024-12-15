@@ -26,17 +26,10 @@ GeoCLIP-Plus builds on the original GeoCLIP model by incorporating advanced feat
 
 Similarly to OpenAI's CLIP, GeoCLIP is trained contrastively by matching Image-GPS pairs. By using the MP-16 dataset, composed of 4.7M Images taken across the globe, GeoCLIP learns distinctive visual features associated with different locations on earth.
 
-_🚧 Repo Under Construction 🔨_
 
-## 📎 Getting Started: API
+## 📎 Getting Started:
 
-You can install GeoCLIP's module using pip:
-
-```
-pip install geoclip
-```
-
-directly from source:
+Install directly from source:
 
 ```
 git clone https://github.com/LangGang-AI/geo-clip-plus
