@@ -14,7 +14,7 @@
 
 </div>
 
-### 📍 Try The Demo! [![Colab Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1p3f5F3fIw9CD7H4RvfnHO9g-J45qUPHp?usp=sharing)
+### 📍 Try The Demo! [![Colab Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/*pending*)
 
 ## Description
 
@@ -36,15 +36,15 @@ You can install GeoCLIP's module using pip:
 pip install geoclip
 ```
 
-or directly from source:
+directly from source:
 
 ```
-git clone https://github.com/VicenteVivan/geo-clip
-cd geo-clip
+git clone https://github.com/LangGang-AI/geo-clip-plus
+cd geo-clip-plus
 python setup.py install
 ```
 
-## 🗺️📍 Worldwide Image Geolocalization
+## 🗺️📍 Image Geolocalization
 
 ![ALT TEXT](/figures/inference.png)
 
@@ -69,13 +69,16 @@ for i in range(5):
     print("")
 ```
 
+## Text Localization 
+'''python 
+
+
 ## 🌐 Worldwide GPS Embeddings
 
-In our paper, we show that once trained, our location encoder can assist other geo-aware neural architectures. Specifically, we explore our location encoder's ability to improve multi-class classification accuracy. We achieved state-of-the-art results on the Geo-Tagged NUS-Wide Dataset by concatenating GPS features from our pre-trained location encoder with an image's visual features. Additionally, we found that the GPS features learned by our location encoder, even without extra information, are effective for geo-aware image classification, achieving state-of-the-art performance in the GPS-only multi-class classification task on the same dataset.
 
 ![ALT TEXT](/figures/downstream-task.png)
 
-### Usage: Pre-Trained Location Encoder
+### QuickStart: Get Location Embeddings with the Pre-trained Encoder
 
 ```python
 import torch
@@ -90,11 +93,11 @@ print(gps_embeddings.shape) # (2, 512)
 
 ## Acknowledgments
 
-This project incorporates code from Joshua M. Long's Random Fourier Features Pytorch. For the original source, visit [here](https://github.com/jmclong/random-fourier-features-pytorch).
+This project is  based on the work of Vicente Vivanco Cepeda. It also incorporates code from Joshua M. Long's Random Fourier Features Pytorch. For the original source, visit [here](https://github.com/jmclong/random-fourier-features-pytorch).
 
 ## Citation
 
-If you find GeoCLIP beneficial for your research, please consider citing us with the following BibTeX entry:
+If you find GeoCLIP or GeoCLIP-Plusbeneficial for your research, please consider citing us with the following BibTeX entry:
 
 ```
 @inproceedings{geoclip,
