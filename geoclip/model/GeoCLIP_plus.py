@@ -28,6 +28,10 @@ class GeoCLIPPlus(nn.Module):
         self.location_encoder = LocationEncoder()
         
         # Text processing capability
+        # TODO: Potential model-tokenizer mismatch. The ImageEncoder uses openai/clip-vit-large-patch14,
+        # but this tokenizer is openai/clip-vit-base-patch32. For optimal performance and to ensure
+        # correct feature extraction, the tokenizer should align with the text model component of
+        # self.image_encoder.CLIP (which is clip-vit-large-patch14).
         self.tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-base-patch32")
         
         # GPS gallery and queue management
@@ -57,11 +61,14 @@ class GeoCLIPPlus(nn.Module):
         Returns:
             GeoCLIPPlus: Model moved to specified device.
         """
+        super().to(device)
         self.device = device
         self.image_encoder.to(device)
         self.location_encoder.to(device)
+        # Ensure logit_scale and logit_bias are moved to the correct device
         self.logit_scale.data = self.logit_scale.data.to(device)
-        return super().to(device)
+        # self.logit_bias.data = self.logit_bias.data.to(device) # Assuming logit_bias exists
+        return self
 
     def _load_weights(self):
         """
@@ -69,13 +76,13 @@ class GeoCLIPPlus(nn.Module):
         """
         try:
             self.image_encoder.mlp.load_state_dict(
-                torch.load(f"{self.weights_folder}/image_encoder_mlp_weights.pth")
+                torch.load(os.path.join(self.weights_folder, "image_encoder_mlp_weights.pth"))
             )
             self.location_encoder.load_state_dict(
-                torch.load(f"{self.weights_folder}/location_encoder_weights.pth")
+                torch.load(os.path.join(self.weights_folder, "location_encoder_weights.pth"))
             )
             self.logit_scale = nn.Parameter(
-                torch.load(f"{self.weights_folder}/logit_scale_weights.pth")
+                torch.load(os.path.join(self.weights_folder, "logit_scale_weights.pth"))
             )
         except FileNotFoundError as e:
             print(f"Weight loading error: {e}")
@@ -214,9 +221,11 @@ class GeoCLIPPlus(nn.Module):
         """
         if isinstance(input_source, str):
             # Determine input type based on file extension
-            if input_source.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+            _, ext = os.path.splitext(input_source)
+            if ext.lower() in ['.png', '.jpg', '.jpeg', '.gif', '.bmp']:
                 return self._predict_from_image(input_source, top_k)
             else:
+                # Assuming it's a text query if not a recognized image extension
                 return self.predict_from_text(input_source, top_k)
         else:
             raise ValueError("Input must be an image path or text query.")
