@@ -28,11 +28,7 @@ class GeoCLIPPlus(nn.Module):
         self.location_encoder = LocationEncoder()
         
         # Text processing capability
-        # TODO: Potential model-tokenizer mismatch. The ImageEncoder uses openai/clip-vit-large-patch14,
-        # but this tokenizer is openai/clip-vit-base-patch32. For optimal performance and to ensure
-        # correct feature extraction, the tokenizer should align with the text model component of
-        # self.image_encoder.CLIP (which is clip-vit-large-patch14).
-        self.tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-base-patch32")
+        self.tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-large-patch14")
         
         # GPS gallery and queue management
         self.gps_gallery = load_gps_data(os.path.join(file_dir, "gps_gallery", "coordinates_100K.csv"))
