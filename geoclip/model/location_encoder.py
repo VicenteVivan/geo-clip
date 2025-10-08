@@ -1,3 +1,4 @@
+import os # Import os for os.path.join
 import torch
 import torch.nn as nn
 from .rff import GaussianEncoding
@@ -11,14 +12,19 @@ A4 = 0.003796
 SF = 66.50336
 
 def equal_earth_projection(L):
+    # Define constants within the function scope, ensuring they are on the same device as L.
+    THREE = torch.tensor(3.0, device=L.device)
+    SQRT_THREE = torch.sqrt(THREE)
+
     latitude = L[:, 0]
     longitude = L[:, 1]
+
     latitude_rad = torch.deg2rad(latitude)
     longitude_rad = torch.deg2rad(longitude)
-    sin_theta = (torch.sqrt(torch.tensor(3.0)) / 2) * torch.sin(latitude_rad)
+    sin_theta = (SQRT_THREE / 2) * torch.sin(latitude_rad)
     theta = torch.asin(sin_theta)
-    denominator = 3 * (9 * A4 * theta**8 + 7 * A3 * theta**6 + 3 * A2 * theta**2 + A1)
-    x = (2 * torch.sqrt(torch.tensor(3.0)) * longitude_rad * torch.cos(theta)) / denominator
+    denominator = THREE * (9 * A4 * theta**8 + 7 * A3 * theta**6 + 3 * A2 * theta**2 + A1)
+    x = (2 * SQRT_THREE * longitude_rad * torch.cos(theta)) / denominator
     y = A4 * theta**9 + A3 * theta**7 + A2 * theta**3 + A1 * theta
     return (torch.stack((x, y), dim=1) * SF) / 180
 
@@ -54,7 +60,7 @@ class LocationEncoder(nn.Module):
             self._load_weights()
 
     def _load_weights(self):
-        self.load_state_dict(torch.load(f"{file_dir}/weights/location_encoder_weights.pth"))
+        self.load_state_dict(torch.load(os.path.join(file_dir, "weights", "location_encoder_weights.pth")))
 
     def forward(self, location):
         location = equal_earth_projection(location)
