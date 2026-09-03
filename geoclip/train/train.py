@@ -1,19 +1,28 @@
 import torch
 from torch import nn
-import torch.nn.functional as F
 from tqdm import tqdm
 
-def train(train_dataloader, model, optimizer, epoch, batch_size, device, scheduler=None, criterion=nn.CrossEntropyLoss()):
+
+def train(
+    train_dataloader,
+    model,
+    optimizer,
+    epoch,
+    batch_size,
+    device,
+    scheduler=None,
+    criterion=None,
+):
     print("Starting Epoch", epoch)
 
     bar = tqdm(enumerate(train_dataloader), total=len(train_dataloader))
+    criterion = criterion or nn.CrossEntropyLoss()
 
-    targets_img_gps = torch.Tensor([i for i in range(batch_size)]).long().to(device)
-
-    for i ,(imgs, gps) in bar:
+    for _, (imgs, gps) in bar:
         imgs = imgs.to(device)
         gps = gps.to(device)
         gps_queue = model.get_gps_queue()
+        targets_img_gps = torch.arange(imgs.shape[0], device=device)
 
         optimizer.zero_grad()
 
@@ -32,7 +41,7 @@ def train(train_dataloader, model, optimizer, epoch, batch_size, device, schedul
         loss.backward()
         optimizer.step()
 
-        bar.set_description("Epoch {} loss: {:.5f}".format(epoch, loss.item()))
+        bar.set_description(f"Epoch {epoch} loss: {loss.item():.5f}")
 
     if scheduler is not None:
         scheduler.step()

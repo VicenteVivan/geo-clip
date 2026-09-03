@@ -67,14 +67,20 @@ class GeoCLIP(nn.Module):
         gps_batch_size = gps.shape[0]
         gps_ptr = int(self.gps_queue_ptr)
 
-        assert self.queue_size % gps_batch_size == 0, (
-            f"Queue size {self.queue_size} should be divisible by batch size "
-            f"{gps_batch_size}"
-        )
+        if gps_batch_size >= self.queue_size:
+            self.gps_queue.copy_(gps[-self.queue_size :].t())
+            self.gps_queue_ptr.zero_()
+            return
 
-        # Replace the GPS from ptr to ptr+gps_batch_size (dequeue and enqueue)
-        self.gps_queue[:, gps_ptr : gps_ptr + gps_batch_size] = gps.t()
-        gps_ptr = (gps_ptr + gps_batch_size) % self.queue_size  # move pointer
+        end_ptr = gps_ptr + gps_batch_size
+        if end_ptr <= self.queue_size:
+            self.gps_queue[:, gps_ptr:end_ptr] = gps.t()
+        else:
+            first_chunk = self.queue_size - gps_ptr
+            self.gps_queue[:, gps_ptr:] = gps[:first_chunk].t()
+            self.gps_queue[:, : end_ptr - self.queue_size] = gps[first_chunk:].t()
+
+        gps_ptr = end_ptr % self.queue_size
         self.gps_queue_ptr[0] = gps_ptr
 
     def get_gps_queue(self):
