@@ -1,6 +1,5 @@
 import numpy as np
 import torch
-
 from torch import Tensor
 
 
@@ -17,9 +16,7 @@ def sample_b(sigma: float, size: tuple) -> Tensor:
 
 
 @torch.jit.script
-def gaussian_encoding(
-        v: Tensor,
-        b: Tensor) -> Tensor:
+def gaussian_encoding(v: Tensor, b: Tensor) -> Tensor:
     r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{B} \mathbf{v}} , \sin{2 \pi \mathbf{B} \mathbf{v}})`
 
     Args:
@@ -36,8 +33,7 @@ def gaussian_encoding(
 
 
 @torch.jit.script
-def basic_encoding(
-        v: Tensor) -> Tensor:
+def basic_encoding(v: Tensor) -> Tensor:
     r"""Computes :math:`\gamma(\mathbf{v}) = (\cos{2 \pi \mathbf{v}} , \sin{2 \pi \mathbf{v}})`
 
     Args:
@@ -53,10 +49,7 @@ def basic_encoding(
 
 
 @torch.jit.script
-def positional_encoding(
-        v: Tensor,
-        sigma: float,
-        m: int) -> Tensor:
+def positional_encoding(v: Tensor, sigma: float, m: int) -> Tensor:
     r"""Computes :math:`\gamma(\mathbf{v}) = (\dots, \cos{2 \pi \sigma^{(j/m)} \mathbf{v}} , \sin{2 \pi \sigma^{(j/m)} \mathbf{v}}, \dots)`
         where :math:`j \in \{0, \dots, m-1\}`
 

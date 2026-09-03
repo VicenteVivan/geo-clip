@@ -36,7 +36,7 @@ or directly from source:
 ```
 git clone https://github.com/VicenteVivan/geo-clip
 cd geo-clip
-python setup.py install
+python -m pip install .
 ```
 
 ## 🗺️📍 Worldwide Image Geolocalization

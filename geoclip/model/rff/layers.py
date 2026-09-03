@@ -1,16 +1,18 @@
-import torch.nn as nn
+from torch import Tensor, nn
 
-from typing import Optional
-from torch import Tensor
 from . import functional
+
 
 class GaussianEncoding(nn.Module):
     """Layer for mapping coordinates using random Fourier features"""
 
-    def __init__(self, sigma: Optional[float] = None,
-                 input_size: Optional[float] = None,
-                 encoded_size: Optional[float] = None,
-                 b: Optional[Tensor] = None):
+    def __init__(
+        self,
+        sigma: float | None = None,
+        input_size: float | None = None,
+        encoded_size: float | None = None,
+        b: Tensor | None = None,
+    ):
         r"""
         Args:
             sigma (Optional[float]): standard deviation
@@ -27,7 +29,8 @@ class GaussianEncoding(nn.Module):
         if b is None:
             if sigma is None or input_size is None or encoded_size is None:
                 raise ValueError(
-                    'Arguments "sigma," "input_size," and "encoded_size" are required.')
+                    'Arguments "sigma," "input_size," and "encoded_size" are required.'
+                )
 
             b = functional.sample_b(sigma, (encoded_size, input_size))
         elif sigma is not None or input_size is not None or encoded_size is not None:

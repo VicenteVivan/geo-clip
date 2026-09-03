@@ -1,7 +1,8 @@
-torch
-torchvision
-Pillow
-transformers
-pandas
-numpy
-geopy
+torch>=2.0,<3
+torchvision>=0.15,<1
+Pillow>=9.0,<13
+transformers>=4.28,<6
+pandas>=1.5,<4
+numpy>=1.23,<3
+geopy>=2.3,<3
+tqdm>=4.65,<5

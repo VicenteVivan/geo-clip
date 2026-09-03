@@ -1,26 +1,6 @@
-from setuptools import setup, find_packages
+"""Compatibility entry point for tools that do not yet support PEP 517."""
 
-with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
+from setuptools import setup
 
-setup(
-    name="geoclip",
-    version="1.2.0",
-    packages=find_packages(),
-    description="",
-    long_description=open("README.md").read(),
-    long_description_content_type="text/markdown",
-    url="https://github.com/VicenteVivan/geo-clip",
-    author="Vicente Vivanco",
-    author_email="vicente.vivancocepeda@ucf.edu",
-    license="MIT",
-    install_requires=requirements,
-    include_package_data=True,
-    python_requires=">=3.6",
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-)
- 
+
+setup()
