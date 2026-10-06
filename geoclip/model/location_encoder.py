@@ -50,6 +50,32 @@ class LocationEncoderCapsule(nn.Module):
 
 
 class LocationEncoder(nn.Module):
+    @classmethod
+    def from_pretrained(
+        cls,
+        pretrained_model_name_or_path,
+        *,
+        revision=None,
+        token=None,
+        cache_dir=None,
+        local_files_only=False,
+        device="cpu",
+    ):
+        """Load a Hub ID or local release folder without an image backbone."""
+        from ._hub import read_release
+
+        _, config, weights = read_release(
+            pretrained_model_name_or_path,
+            "geoclip-location-encoder",
+            revision=revision,
+            token=token,
+            cache_dir=cache_dir,
+            local_files_only=local_files_only,
+        )
+        model = cls(sigma=config["sigma"], from_pretrained=False)
+        model.load_state_dict(weights, strict=True)
+        return model.to(device).eval()
+
     def __init__(self, sigma=None, from_pretrained=True):
         super().__init__()
         self.sigma = sigma if sigma is not None else [2**0, 2**4, 2**8]

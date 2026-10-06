@@ -12,10 +12,51 @@ from .misc import file_dir, load_gps_data
 
 
 class GeoCLIP(nn.Module):
-    def __init__(self, from_pretrained=True, queue_size=4096):
+    @classmethod
+    def from_pretrained(
+        cls,
+        pretrained_model_name_or_path,
+        *,
+        revision=None,
+        token=None,
+        cache_dir=None,
+        local_files_only=False,
+        device="cpu",
+    ):
+        """Load a Hub ID or local release folder, ready for inference."""
+        from ._hub import (
+            download_backbone,
+            load_geoclip_weights,
+            read_gallery,
+            read_release,
+        )
+
+        options = dict(
+            token=token,
+            cache_dir=cache_dir,
+            local_files_only=local_files_only,
+        )
+        path, config, weights = read_release(
+            pretrained_model_name_or_path,
+            "geoclip-geolocation",
+            revision=revision,
+            **options,
+        )
+        gallery = read_gallery(path, config)
+        clip_path = download_backbone(config, **options)
+        model = cls(from_pretrained=False, clip_path=clip_path)
+        if model.location_encoder.sigma != config["sigma"]:
+            model.location_encoder = LocationEncoder(
+                sigma=config["sigma"], from_pretrained=False
+            )
+        model.gps_gallery = gallery
+        load_geoclip_weights(model, weights)
+        return model.to(device).eval()
+
+    def __init__(self, from_pretrained=True, queue_size=4096, *, clip_path=None):
         super().__init__()
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
-        self.image_encoder = ImageEncoder()
+        self.image_encoder = ImageEncoder(clip_path=clip_path)
         self.location_encoder = LocationEncoder(from_pretrained=False)
 
         gps_gallery = load_gps_data(

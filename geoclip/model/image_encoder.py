@@ -30,12 +30,11 @@ def _extract_image_features(output):
 
 
 class ImageEncoder(nn.Module):
-    def __init__(self):
+    def __init__(self, *, clip_path=None):
         super().__init__()
-        self.CLIP = CLIPModel.from_pretrained("openai/clip-vit-large-patch14")
-        self.image_processor = AutoProcessor.from_pretrained(
-            "openai/clip-vit-large-patch14"
-        )
+        clip_model = "openai/clip-vit-large-patch14" if clip_path is None else clip_path
+        self.CLIP = CLIPModel.from_pretrained(clip_model)
+        self.image_processor = AutoProcessor.from_pretrained(clip_model)
         self.mlp = nn.Sequential(nn.Linear(768, 768), nn.ReLU(), nn.Linear(768, 512))
 
         # Freeze CLIP
