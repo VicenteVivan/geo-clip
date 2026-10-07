@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "geoclip"
-version = "1.2.2"
+version = "1.2.3"
 description = "CLIP-inspired image and GPS encoders for worldwide image geolocalization"
 readme = "README.md"
 requires-python = ">=3.10"
