@@ -53,10 +53,19 @@ class GeoCLIP(nn.Module):
         load_geoclip_weights(model, weights)
         return model.to(device).eval()
 
-    def __init__(self, from_pretrained=True, queue_size=4096, *, clip_path=None):
+    def __init__(
+        self,
+        from_pretrained=True,
+        queue_size=4096,
+        *,
+        clip_path=None,
+        clip_pretrained=True,
+    ):
         super().__init__()
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
-        self.image_encoder = ImageEncoder(clip_path=clip_path)
+        self.image_encoder = ImageEncoder(
+            from_pretrained=clip_pretrained, clip_path=clip_path
+        )
         self.location_encoder = LocationEncoder(from_pretrained=False)
 
         gps_gallery = load_gps_data(
