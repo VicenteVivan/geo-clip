@@ -21,8 +21,6 @@ GeoCLIP addresses the challenges of worldwide image geo-localization by introduc
 
 Similarly to OpenAI's CLIP, GeoCLIP is trained contrastively by matching Image-GPS pairs. By using the MP-16 dataset, composed of 4.7M Images taken across the globe, GeoCLIP learns distinctive visual features associated with different locations on earth.
 
-_🚧 Repo Under Construction 🔨_
-
 ## 📎 Getting Started: API
 
 You can install GeoCLIP's module using pip:
