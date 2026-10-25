@@ -61,7 +61,7 @@ jobs:
           import tarfile
           import tomllib
           import zipfile
-          from pathlib import Path
+          from pathlib import Path, PurePosixPath
 
           with open("pyproject.toml", "rb") as project_file:
               version = tomllib.load(project_file)["project"]["version"]
@@ -81,6 +81,17 @@ jobs:
           for archive_name, names in (("wheel", wheel_names), ("source", source_names)):
               if any(name.endswith(".ipynb") for name in names):
                   raise SystemExit(f"A notebook was included in the {archive_name} archive.")
+              if any(PurePosixPath(name).name.lower() == "agents.md" for name in names):
+                  raise SystemExit(f"A private working guide was included in the {archive_name} archive.")
+              for name in names:
+                  path = PurePosixPath(name)
+                  if (
+                      "tests" in path.parts
+                      or path.match("test_*.py")
+                      or path.match("*_test.py")
+                      or path.name in ("conftest.py", "pytest.ini")
+                  ):
+                      raise SystemExit(f"Development tests were included in the {archive_name} archive.")
 
           required_wheel_files = (
               "geoclip/images/Kauai.png",

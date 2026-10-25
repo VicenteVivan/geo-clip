@@ -23,6 +23,10 @@ Similarly to OpenAI's CLIP, GeoCLIP is trained contrastively by matching Image-G
 
 ## 📎 Getting Started: API
 
+GeoCLIP requires Python 3.11 or newer and Pillow 13.x. Pillow 13 fixes
+security vulnerabilities in TIFF decoding and PDF parsing. Python 3.10 users
+must upgrade Python to use the patched dependency.
+
 You can install GeoCLIP's module using pip:
 
 ```

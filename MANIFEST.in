@@ -2,3 +2,6 @@ recursive-include geoclip/model/gps_gallery *.csv
 recursive-include geoclip/model/weights *.pth
 recursive-include geoclip/images *.png
 recursive-include figures *.png
+global-exclude AGENTS.md agents.md
+prune tests
+global-exclude test_*.py *_test.py conftest.py pytest.ini

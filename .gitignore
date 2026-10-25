@@ -5,3 +5,10 @@ __pycache__/
 build/
 dist/
 .venv/
+AGENTS.md
+agents.md
+tests/
+test_*.py
+*_test.py
+conftest.py
+pytest.ini
